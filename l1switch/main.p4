@@ -1,24 +1,31 @@
 #include <core.p4>
 #include <psa.p4>
 
-struct empty_metadata_t {
-}
-struct headers_t {                                                                                                                }
+struct empty_metadata_t {}
+struct headers_t {}
 
-struct local_metadata_t {
-}
+struct local_metadata_t {}
 
-parser packet_parser(                                                                                                               packet_in packet,
+parser packet_parser(
+  packet_in packet,
   out headers_t headers,
   inout local_metadata_t local_metadata,
   in psa_ingress_parser_input_metadata_t standard_metadata,
   in empty_metadata_t resub_meta,
   in empty_metadata_t recirc_meta) {
-    state start {                                                                                                                         transition accept;                                                                                                            }
+    state start {
+        transition accept;
+    }
 }
 
-control packet_deparser(packet_out packet, out empty_metadata_t clone_i2e_meta, out empty_metadata_t resubmit_meta, out empty_meta
-data_t normal_meta, inout headers_t headers, in local_metadata_t local_metadata, in psa_ingress_output_metadata_t istd) {
+control packet_deparser(
+    packet_out packet,
+    out empty_metadata_t clone_i2e_meta,
+    out empty_metadata_t resubmit_meta,
+    out empty_metadata_t normal_meta,
+    inout headers_t headers,
+    in local_metadata_t local_metadata,
+    in psa_ingress_output_metadata_t istd) {
     apply {
     }
 }
