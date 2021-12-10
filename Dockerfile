@@ -10,25 +10,10 @@ RUN apt install -y git curl wget automake cmake clang python3 python3-pip sudo
 RUN mkdir -p $SDE_INSTALL
 
 WORKDIR $SDE
-RUN git clone --depth=1 https://github.com/p4lang/target-utils --recursive utils
-RUN git clone --depth=1 https://github.com/p4lang/target-syslibs --recursive syslibs
 RUN git clone --depth=1 https://github.com/p4lang/p4-dpdk-target --recursive p4-dpdk-target
 RUN pip3 install distro
 RUN cd p4-dpdk-target/tools/setup; python3 install_dep.py
-RUN cd $SDE/utils && \
-    mkdir build && \
-    cd build && \
-    cmake -DCMAKE_INSTALL_PREFIX=$SDE_INSTALL -DCPYTHON=1 -DSTANDALONE=ON .. && \
-    make -j && \
-    make install
-RUN cd $SDE/syslibs && \
-    mkdir build && \
-    cd build && \
-    cmake -DCMAKE_INSTALL_PREFIX=$SDE_INSTALL .. && \
-    make -j && \
-    make install
 RUN cd $SDE/p4-dpdk-target && \
-    git submodule update --init --recursive --force && \
     ./autogen.sh && \
     ./configure --prefix=$SDE_INSTALL && \
     make -j && \
