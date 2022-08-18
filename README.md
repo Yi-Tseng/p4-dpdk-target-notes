@@ -97,6 +97,8 @@ We need to tell the switch how to connect to ports, here is the json schema for 
             "port_dir": "", // "default", "in", or "out"
             "port_in_id": 0, // required when port_dir is "default" or "in"
             "port_out_id": 0, // required when port_dir is "default" or "out"
+            "pipe_in": "", // The pipeline used for "in", most probably the same as pipe_name. Required when port_dir is "default" or "in"
+            "pipe_out": "", // The pipeline used for "out", most probably the same as pipe_name. Required when port_dir is "default" or "out"
             "port_type": "", // "tap", "link", "source", or "sink"
             // required when port type is "tap"
             "tap_port_attributes": {
@@ -176,6 +178,17 @@ and port config, here we provide a simple switch config:
         {
             "device-id": 0,
             "eal-args": "dummy -n 4 -c 7",
+            "debug-cli": "enable",
+            "mempools": [
+                {
+                    "name": "MEMPOOL0",
+                    "buffer_size": 2048,
+                    "pool_size": 1024,
+                    "cache_size": 256,
+                    "numa_node": 0
+
+                }
+            ],
             "p4_programs": [
                 {
                     "program-name": "l1switch",
